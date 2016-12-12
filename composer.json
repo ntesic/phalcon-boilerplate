@@ -1,0 +1,20 @@
+{
+	"name": "ntesic/phalcon-helpers",
+	"description": "Boilerplate for Phalcon PHP framework",
+	"minimum-stability": "dev",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "ntesic"
+		}
+	],
+	"require": {
+		"php": "^7.0",
+		"ext-phalcon" : "^3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"ntesic\\boilerplate\\": ""
+		}
+	}
+}
