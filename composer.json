@@ -1,5 +1,5 @@
 {
-	"name": "ntesic/phalcon-helpers",
+	"name": "ntesic/phalcon-boilerplate",
 	"description": "Boilerplate for Phalcon PHP framework",
 	"minimum-stability": "dev",
 	"license": "MIT",
