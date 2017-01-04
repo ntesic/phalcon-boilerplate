@@ -10,7 +10,8 @@
 	],
 	"require": {
 		"php": "^7.0",
-		"ext-phalcon" : "^3.0"
+		"ext-phalcon" : "^3.0",
+		"trntv/probe": "@dev"
 	},
 	"autoload": {
 		"psr-4": {

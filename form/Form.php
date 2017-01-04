@@ -16,6 +16,7 @@ namespace ntesic\boilerplate\Form;
 
 use ntesic\boilerplate\Helpers\Tag;
 use ntesic\boilerplate\Helpers\Text;
+use Phalcon\Forms\Element;
 use Phalcon\Forms\Exception;
 use Phalcon\Mvc\Model;
 
@@ -70,6 +71,9 @@ class Form extends \Phalcon\Forms\Form
             'enctype' => $this->enctype,
         ];
         echo $this->indent() . Tag::form($formParams) . PHP_EOL;
+        /**
+         * @var Element $element
+         */
         foreach ($this as $element) {
             //Get any generated messages for the current element
             $messages = $this->getMessagesFor($element->getName());
@@ -79,13 +83,26 @@ class Form extends \Phalcon\Forms\Form
                 $groupClass = 'form-group';
             }
             echo $this->indent(1) . Tag::tagHtml('div', ['class' => $groupClass]) . PHP_EOL;
-            $label = $element->getLabel() ? $element->getLabel() : Text::camel2words($element->getName());
-            echo $this->indent(2) . Tag::tagHtml('label', ['for' => $element->getName(), 'class' => $this->labelClass]);
-            echo $label;
-            echo Tag::tagHtmlClose('label') . PHP_EOL;
-            echo $this->indent(2) . Tag::tagHtml('div', ['class' => $this->elementClass]) . PHP_EOL;
-            echo $this->indent(3) . $element->render(['class' => 'form-control']) . PHP_EOL;
-            echo $this->indent(2) . Tag::tagHtmlClose('div') . PHP_EOL;
+            $label = $this->_entity ? $this->_entity->getAttributeLabel($element->getName()) : Text::camel2words($element->getName());
+            if (!$element instanceof Element\Check) {
+                // Non checkbox elements
+                echo $this->indent(2) . Tag::tagHtml('label', ['for' => $element->getName(), 'class' => $this->labelClass]);
+                echo $label;
+                echo Tag::tagHtmlClose('label') . PHP_EOL;
+                echo $this->indent(2) . Tag::tagHtml('div', ['class' => $this->elementClass]) . PHP_EOL;
+                echo $this->indent(3) . $element->render(['class' => 'form-control']) . PHP_EOL;
+                echo $this->indent(2) . Tag::tagHtmlClose('div') . PHP_EOL;
+            } else {
+                // Checkbox element
+                echo $this->indent(2) . Tag::tagHtml('div', ['class' => $this->elementClass . ' col-sm-offset-3']) . PHP_EOL;
+                echo Tag::tagHtml('div',['class' => 'checkbox']);
+                echo $this->indent(2) . Tag::tagHtml('label', ['for' => $element->getName(),]);
+                echo $this->indent(3) . $element->render() . PHP_EOL;
+                echo $label;
+                echo Tag::tagHtmlClose('label') . PHP_EOL;
+                echo Tag::tagHtmlClose('div') . PHP_EOL;
+                echo Tag::tagHtmlClose('div') . PHP_EOL;
+            }
             echo $this->indent(1) . Tag::tagHtmlClose('div') . PHP_EOL;
         }
         echo $this->indent(1) . Tag::tagHtml('hr') . PHP_EOL;

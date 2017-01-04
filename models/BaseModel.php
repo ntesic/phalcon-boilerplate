@@ -14,6 +14,7 @@
 namespace ntesic\boilerplate\models;
 
 
+use ntesic\boilerplate\Helpers\Text;
 use Phalcon\Mvc\Model;
 
 class BaseModel extends Model
@@ -26,6 +27,19 @@ class BaseModel extends Model
     public function readAttribute($attribute)
     {
         return $this->$attribute;
+    }
+
+    /**
+     * Returns the text label for the specified attribute.
+     * @param string $attribute the attribute name
+     * @return string the attribute label
+     * @see generateAttributeLabel()
+     * @see attributeLabels()
+     */
+    public function getAttributeLabel($attribute)
+    {
+        $labels = $this->labels();
+        return isset($labels[$attribute]) ? $labels[$attribute] : $this->generateAttributeLabel($attribute);
     }
 
     /**
@@ -46,4 +60,16 @@ class BaseModel extends Model
         $this->isNew = false;
     }
 
+    /**
+     * Generates a user friendly attribute label based on the give attribute name.
+     * This is done by replacing underscores, dashes and dots with blanks and
+     * changing the first letter of each word to upper case.
+     * For example, 'department_name' or 'DepartmentName' will generate 'Department Name'.
+     * @param string $name the column name
+     * @return string the attribute label
+     */
+    public function generateAttributeLabel($name)
+    {
+        return Text::camel2words($name, true);
+    }
 }

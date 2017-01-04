@@ -15,8 +15,9 @@ namespace ntesic\boilerplate\grid;
 
 
 use ntesic\boilerplate\Helpers\ArrayHelper;
+use ntesic\boilerplate\models\BaseModel;
 use Phalcon\Mvc\Model;
-use Phalcon\Text;
+use ntesic\boilerplate\Helpers\Text;
 
 class DataColumn extends Column
 {
@@ -105,14 +106,14 @@ class DataColumn extends Column
 
         $label = $this->getHeaderCellLabel();
         if ($this->encodeLabel) {
-            $label = json_encode($label);
+            $label = htmlspecialchars($label, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         }
 
 //        if ($this->attribute !== null && $this->enableSorting &&
 //            ($sort = $this->grid->dataProvider->getSort()) !== false && $sort->hasAttribute($this->attribute)) {
 //            return $sort->link($this->attribute, array_merge($this->sortLinkOptions, ['label' => $label]));
 //        } else {
-            return $label;
+        return $label;
 //        }
     }
 
@@ -124,26 +125,13 @@ class DataColumn extends Column
     {
         $provider = $this->grid->dataProvider;
         if ($this->label === null) {
-        $label = Text::camelize($this->attribute);
-//            if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
-//                /* @var $model Model */
-//                $model = new $provider->query->modelClass;
-//                $label = $model->getAttributeLabel($this->attribute);
-//            } elseif ($provider instanceof ArrayDataProvider && $provider->modelClass !== null) {
-//                /* @var $model Model */
-//                $model = new $provider->modelClass;
-//                $label = $model->getAttributeLabel($this->attribute);
-//            } elseif ($this->grid->filterModel !== null && $this->grid->filterModel instanceof Model) {
-//                $label = $this->grid->filterModel->getAttributeLabel($this->attribute);
-//            } else {
-//                $models = $provider->getModels();
-//                if (($model = reset($models)) instanceof Model) {
-//                    /* @var $model Model */
-//                    $label = $model->getAttributeLabel($this->attribute);
-//                } else {
-//                    $label = Inflector::camel2words($this->attribute);
-//                }
-//            }
+            $models = $provider->getModels();
+            if (($model = reset($models)) instanceof Model) {
+                /* @var $model BaseModel */
+                $label = $model->getAttributeLabel($this->attribute);
+            } else {
+                $label = Text::camel2words($this->attribute);
+            }
         } else {
             $label = $this->label;
         }

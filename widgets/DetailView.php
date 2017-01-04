@@ -211,8 +211,7 @@ class DetailView extends Widget
             if (isset($attribute['attribute'])) {
                 $attributeName = $attribute['attribute'];
                 if (!isset($attribute['label'])) {
-//                    $attribute['label'] = $this->model instanceof Model ? $this->model->getAttributeLabel($attributeName) : Text::camel2words($attributeName, true);
-                    $attribute['label'] = Text::camel2words($attributeName, true);
+                    $attribute['label'] = $this->model instanceof Model ? $this->model->getAttributeLabel($attributeName) : Text::camel2words($attributeName, true);
                 }
                 if (!array_key_exists('value', $attribute)) {
                     $attribute['value'] = ArrayHelper::getValue($this->model, $attributeName);

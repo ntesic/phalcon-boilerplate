@@ -38,6 +38,5 @@ class ModelDataProvider extends QueryDataProvider
             $models[] = $model;
         }
         return $models;
-        return $this->getPagination()->getPaginate()->items;
     }
 }

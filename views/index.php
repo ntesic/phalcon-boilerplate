@@ -17,6 +17,7 @@
     <?= $this->tag->stylesheetLink("https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&subset=latin,cyrillic-ext,cyrillic", false) ?>
     <?= $this->tag->stylesheetLink("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css", false) ?>
     <?= $this->tag->stylesheetLink("https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css", false) ?>
+    <?= $this->tag->stylesheetLink("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css", false) ?>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <?= $this->assets->outputCss('main_css') ?>
@@ -36,5 +37,8 @@
 </div>
 <?= $this->assets->outputJs('footer') ?>
 <?= $this->assets->outputInlineJs() ?>
+<script type="text/javascript">
+    $('select').select2();
+</script>
 </body>
 </html>
