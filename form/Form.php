@@ -84,7 +84,9 @@ class Form extends \Phalcon\Forms\Form
             }
             echo $this->indent(1) . Tag::tagHtml('div', ['class' => $groupClass]) . PHP_EOL;
             $label = $this->_entity ? $this->_entity->getAttributeLabel($element->getName()) : Text::camel2words($element->getName());
-            if (!$element instanceof Element\Check) {
+            if ($element instanceof Element\Hidden) {
+                echo $this->indent(3) . $element->render(['class' => 'form-control']) . PHP_EOL;
+            } elseif (!$element instanceof Element\Check) {
                 // Non checkbox elements
                 echo $this->indent(2) . Tag::tagHtml('label', ['for' => $element->getName(), 'class' => $this->labelClass]);
                 echo $label;
@@ -109,6 +111,9 @@ class Form extends \Phalcon\Forms\Form
         echo $this->indent(1) . $this->getErrors() . PHP_EOL;
         echo $this->flashSession->output();
         echo $this->getButtons();
+        if (method_exists($this, 'beforeEnd')) {
+            $this->beforeEnd();
+        }
         echo $this->indent() . Tag::endForm() . PHP_EOL;
     }
 

@@ -64,6 +64,7 @@ class CheckboxColumn extends Column
             $this->name .= '[]';
         }
         $this->registerJsScript();
+        $this->registerClientScript();
     }
 
     /**
@@ -128,14 +129,33 @@ class CheckboxColumn extends Column
 
     protected function registerJsScript()
     {
-        $js = <<<JS
-        $('document').ready(function(){
-            $("#selection_all").change(function () {
-                $("input:checkbox").prop('checked', $(this).prop("checked"));
-            });
-        });
-JS;
-        $this->assets->addInlineJs($js);
+//        $js = <<<JS
+//        $('document').ready(function(){
+//            $("#selection_all").change(function () {
+//                $("input:checkbox").prop('checked', $(this).prop("checked"));
+//            });
+//        });
+//JS;
+        $this->jquery->change('#selection_all','$("input:checkbox").prop(\'checked\', $(this).prop("checked"));');
+//        $this->jquery->ready($js);
+        $this->jquery->compile($this->view);
+//        $this->assets->addInlineJs($js);
     }
 
+    /**
+     * Registers the needed JavaScript
+     * @since 2.0.8
+     */
+    public function registerClientScript()
+    {
+        $id = $this->grid->options['id'];
+        $options = json_encode([
+            'name' => $this->name,
+            'class' => $this->cssClass,
+            'multiple' => $this->multiple,
+            'checkAll' => $this->grid->showHeader ? $this->getHeaderCheckBoxName() : null,
+        ]);
+        $this->assets->addInlineJs("jQuery('#$id').gridView('setSelectionColumn', $options);");
+//        $this->grid->getView()->registerJs("jQuery('#$id').yiiGridView('setSelectionColumn', $options);");
+    }
 }

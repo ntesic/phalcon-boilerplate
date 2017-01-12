@@ -13,16 +13,18 @@ $head_title = '<span class="logo-mini"><strong>' . $app_mini . '</strong></span>
         </a>
 
         <div class="navbar-custom-menu">
+                <?php
+                $deleteMenu = new \Ajax\bootstrap\html\content\HtmlDropdownItem('log-out');
+                $deleteMenu->setCaption('<i class="glyphicon glyphicon-log-out">&nbsp;</i>Logout')->onClick('logOut();');
+                $dropdownMenu = $this->jquery->bootstrap()->htmlDropdown('admin', '<span class="glyphicon glyphicon-user"></span> Profile', [$deleteMenu]);
+                $dropdownMenu->asButton();
+                $dropdownMenu->addBtnClass('btn-lg');
+                $selectedMenu = $this->jquery->bootstrap()->htmlButtongroups('admin-group');
+                $selectedMenu->addElement($dropdownMenu);
+                echo $selectedMenu->compile($this->jquery);
+                ?>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <?= $this->tag->linkTo(
-                        "https://github.com/phalcon/phalcon-devtools/issues",
-                        "Did something go wrong? Try the Github Issues.",
-                        [
-                            'class' => 'dropdown-toggle',
-                            "local" => false
-                        ]
-                    ) ?>
                 </li>
             </ul>
         </div>

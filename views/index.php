@@ -25,6 +25,7 @@
     <?php //$this->partial('layouts/custom_css'); ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<div class="loader"><div class="spinner"></div></div>
 <div class="wrapper">
     <?php $this->partial('layouts/header'); ?>
     <?php $this->partial('layouts/sidebar'); ?>
@@ -37,8 +38,19 @@
 </div>
 <?= $this->assets->outputJs('footer') ?>
 <?= $this->assets->outputInlineJs() ?>
-<script type="text/javascript">
-    $('select').select2();
-</script>
+<?= $script_foot ?>
+<?= isset($script_foot) ? $script_foot : '' ?>
+<?php
+$this->jquery->ready(
+'$(document)
+    .ajaxStart(function () {
+        $(\'.loader\').show();
+    })
+    .ajaxStop(function () {
+        $(\'.loader\').hide();
+    });
+');
+//echo $this->jquery->compile($this->view);
+?>
 </body>
 </html>

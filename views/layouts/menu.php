@@ -1,31 +1,33 @@
 <?php
 $menu = [
     [
-        'label' => 'Site',
-        'url' => ['/site'],
-        'icon' => 'fa fa-cube'
+        'label' => 'Generator',
+        'url' => ['#'],
+        'icon' => 'fa fa-cube',
+        'items' => [
+            [
+                'label' => 'CRUD Generator',
+                'url' => ['/generator/crud'],
+                'icon' => 'fa fa-cube',
+            ],
+            [
+                'label' => 'Model Generator',
+                'url' => ['/generator/model'],
+                'icon' => 'fa fa-cube',
+            ],
+        ],
     ],
     [
-        'label' => 'Category',
-        'url' => ['/category'],
+        'label' => 'System Information',
+        'url' => ['/system-info'],
         'icon' => 'fa fa-cube'
     ],
-    [
-        'label' => 'Content',
-        'url' => ['/content'],
-        'icon' => 'fa fa-cube'
-    ],
-    [
-        'label' => 'Paysite',
-        'url' => ['/paysite'],
-        'icon' => 'fa fa-cube'
-    ]
 ];
 
 \ntesic\Widgets\Menu::widget([
     'options' => [
         'class' => 'sidebar-menu'
     ],
-    'items' => array_merge_recursive($mainMenu, $menu),
+    'items' => array_merge_recursive(isset($mainMenu) ? $mainMenu : [], $menu),
 ]);
 ?>

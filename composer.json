@@ -11,7 +11,10 @@
 	"require": {
 		"php": "^7.0",
 		"ext-phalcon" : "^3.0",
-		"trntv/probe": "@dev"
+		"trntv/probe": "@dev",
+		"bower-asset/flot": "^0.8",
+		"fxp/composer-asset-plugin": "^1.2.0",
+		"jcheron/phalcon-jquery": "*"
 	},
 	"autoload": {
 		"psr-4": {

@@ -273,4 +273,11 @@ class Text extends \Phalcon\Text
 
         return $word;
     }
+
+    public static function asSize($bytes, $precision = 2) {
+        $base = log($bytes, 1024);
+        $suffixes = array('', 'K', 'M', 'G', 'T');
+
+        return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+    }
 }

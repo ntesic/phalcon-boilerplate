@@ -51,7 +51,7 @@ return $this;
 //            ->addCss('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',false)
             ->addCss($path . 'dist/css/AdminLTE.min.css', true)
             ->addCss($path . 'dist/css/skins/_all-skins.min.css', true)
-            ->addCss('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css', false)
+            ->addCss(VENDOR_PATH . '/ntesic/phalcon-boilerplate/assets/css/boilerplate.css', true)
             ->join(true)
             ->addFilter(new Cssmin());
         return $this;
@@ -73,7 +73,6 @@ return $this;
             ->addJs('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', false, false)
             ->join(true)
             ->addFilter(new Jsmin());
-
         return $this;
     }
 

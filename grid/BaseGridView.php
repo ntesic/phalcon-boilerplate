@@ -14,6 +14,7 @@ use ntesic\boilerplate\Helpers\ArrayHelper;
 use ntesic\boilerplate\Helpers\Tag;
 use ntesic\Widgets\Widget;
 use Phalcon\Assets\Filters\Cssmin;
+use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Exception;
 use Phalcon\Paginator\AdapterInterface;
 use Phalcon\Paginator\Pager;
@@ -360,5 +361,8 @@ class BaseGridView extends Widget
             ->setTargetUri('css/grid.css')
             ->addFilter(new Cssmin())
             ->join(true);
+        $this->assets->collection('footer')
+            ->addJs(VENDOR_PATH . '/ntesic/phalcon-boilerplate/assets/js/grid.js', true)
+            ->addJs(VENDOR_PATH . '/ntesic/phalcon-boilerplate/assets/js/delete-multiple.js', true);
     }
 }
